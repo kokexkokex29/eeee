@@ -2,7 +2,7 @@ import os
 import asyncio
 import logging
 import threading
-from bot import FootballBot
+from bot_manager import bot_manager
 from web_server import create_app
 
 # Configure logging with rate limiting protection
@@ -30,27 +30,11 @@ def start_bot_background():
         bot_thread.start()
         logger.info("Bot started in background thread")
 
-async def run_bot():
-    """Run the Discord bot with enhanced rate limiting protection"""
-    try:
-        bot = FootballBot()
-        logger.info("Starting Discord bot...")
-        
-        # Get bot token from environment variable
-        token = os.getenv('DISCORD_TOKEN')
-        if not token:
-            logger.error("DISCORD_TOKEN environment variable not found!")
-            return
-            
-        await bot.start(token)
-    except Exception as e:
-        logger.error(f"Bot error: {e}")
-        # Extended wait time to avoid rate limits
-        await asyncio.sleep(300)  # Wait 5 minutes before retrying
+# Bot management is now handled by bot_manager.py
 
 def run_bot_sync():
-    """Synchronous wrapper for bot"""
-    asyncio.run(run_bot())
+    """Synchronous wrapper for bot manager"""
+    asyncio.run(bot_manager.start_bot())
 
 # Create Flask app for gunicorn
 app = create_app()
@@ -72,26 +56,12 @@ def main():
     web_thread = threading.Thread(target=run_web_server, daemon=True)
     web_thread.start()
     
-    # Start bot with enhanced error handling and rate limit protection
-    retry_count = 0
-    max_retries = 3
-    
-    while retry_count < max_retries:
-        try:
-            asyncio.run(run_bot())
-        except KeyboardInterrupt:
-            logger.info("Bot shutting down...")
-            break
-        except Exception as e:
-            retry_count += 1
-            logger.error(f"Unexpected error (attempt {retry_count}/{max_retries}): {e}")
-            if retry_count < max_retries:
-                wait_time = 300 * retry_count  # Exponential backoff: 5, 10, 15 minutes
-                logger.info(f"Restarting bot in {wait_time} seconds...")
-                asyncio.run(asyncio.sleep(wait_time))
-            else:
-                logger.error("Max retries reached. Bot will stop to avoid rate limits.")
-                break
+    # Start bot manager
+    try:
+        asyncio.run(bot_manager.start_bot())
+    except KeyboardInterrupt:
+        logger.info("Bot shutting down...")
+        asyncio.run(bot_manager.stop_bot())
 
 if __name__ == "__main__":
     main()
