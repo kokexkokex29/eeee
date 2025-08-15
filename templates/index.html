@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football Bot - Status</title>
+    <link href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.9.96/css/materialdesignicons.min.css" rel="stylesheet">
+    <style>
+        .status-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+        }
+        .feature-card {
+            transition: transform 0.3s ease;
+            border-radius: 10px;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(40, 167, 69, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); }
+        }
+        .hero-section {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <div class="card status-card">
+                        <div class="card-body p-5">
+                            <div class="mb-4">
+                                <span class="mdi mdi-soccer mdi-64px text-white"></span>
+                            </div>
+                            <h1 class="display-4 text-white mb-3">Football Bot</h1>
+                            <div class="d-flex justify-content-center align-items-center mb-4">
+                                <span class="badge bg-success pulse fs-5 px-3 py-2">
+                                    <span class="mdi mdi-check-circle me-2"></span>Bot is Running
+                                </span>
+                            </div>
+                            <p class="lead text-white-50">
+                                Comprehensive Discord bot for managing football clubs, players, and matches
+                            </p>
+                            <div class="mt-4">
+                                <p class="text-white-50 mb-0">
+                                    <small><span class="mdi mdi-clock me-1"></span>Last Updated: <span id="timestamp"></span></small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Setup Instructions Section -->
+    <div class="container py-5">
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-10">
+                <div class="card border-primary">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="mb-0"><span class="mdi mdi-rocket-launch me-2"></span>Setup Instructions</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><span class="mdi mdi-key me-2"></span>1. Add Discord Token</h5>
+                                <p class="text-muted">في تبويب Secrets في Replit، أضف:</p>
+                                <div class="bg-dark p-3 rounded mb-3">
+                                    <code class="text-warning">DISCORD_TOKEN = your_bot_token_here</code>
+                                </div>
+                                <small class="text-muted">
+                                    احصل على التوكن من <a href="https://discord.com/developers/applications" target="_blank" class="text-decoration-none">Discord Developer Portal</a>
+                                </small>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><span class="mdi mdi-cloud-upload me-2"></span>2. Deploy to Render</h5>
+                                <ol class="text-muted">
+                                    <li>اربط مستودع GitHub الخاص بك بـ Render</li>
+                                    <li>اختر "Web Service"</li>
+                                    <li>Build Command: <code class="bg-dark p-1 rounded">pip install -r requirements.txt</code></li>
+                                    <li>Start Command: <code class="bg-dark p-1 rounded">python main.py</code></li>
+                                    <li>أضف متغير البيئة DISCORD_TOKEN</li>
+                                </ol>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <div class="alert alert-info">
+                                    <span class="mdi mdi-information me-2"></span>
+                                    <strong>نصيحة:</strong> تأكد من أن البوت لديه الصلاحيات التالية في Discord: Manage Roles, Send Messages, Use Slash Commands
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-12 text-center mb-5">
+                <h2>Bot Features</h2>
+                <p class="text-muted">Discover what this football management bot can do</p>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+                <div class="card feature-card h-100">
+                    <div class="card-body text-center">
+                        <span class="mdi mdi-shield mdi-48px text-primary mb-3 d-block"></span>
+                        <h5>Club Management</h5>
+                        <p class="text-muted">Create clubs with Discord roles, manage budgets, and track statistics</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="card feature-card h-100">
+                    <div class="card-body text-center">
+                        <span class="mdi mdi-account-group mdi-48px text-success mb-3 d-block"></span>
+                        <h5>Player System</h5>
+                        <p class="text-muted">Add players, set values, manage positions and link Discord users</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="card feature-card h-100">
+                    <div class="card-body text-center">
+                        <span class="mdi mdi-swap-horizontal mdi-48px text-info mb-3 d-block"></span>
+                        <h5>Transfer Market</h5>
+                        <p class="text-muted">Transfer players between clubs with automatic role management</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="card feature-card h-100">
+                    <div class="card-body text-center">
+                        <span class="mdi mdi-calendar-clock mdi-48px text-warning mb-3 d-block"></span>
+                        <h5>Match Scheduling</h5>
+                        <p class="text-muted">Schedule matches with automatic reminders and role notifications</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="card feature-card h-100">
+                    <div class="card-body text-center">
+                        <span class="mdi mdi-chart-line mdi-48px text-danger mb-3 d-block"></span>
+                        <h5>Statistics</h5>
+                        <p class="text-muted">Comprehensive stats, rankings, and analytics for clubs and players</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="card feature-card h-100">
+                    <div class="card-body text-center">
+                        <span class="mdi mdi-crown mdi-48px text-purple mb-3 d-block"></span>
+                        <h5>Admin Controls</h5>
+                        <p class="text-muted">Administrator-only access with backup, reset, and role management</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-dark py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h3 class="text-white mb-4">Available Commands</h3>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="card bg-secondary border-0">
+                                <div class="card-body">
+                                    <h6 class="text-white">Club Commands</h6>
+                                    <small class="text-white-50">
+                                        /create_club, /delete_club, /list_clubs, /update_budget, /club_info
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card bg-secondary border-0">
+                                <div class="card-body">
+                                    <h6 class="text-white">Player Commands</h6>
+                                    <small class="text-white-50">
+                                        /add_player, /transfer_player, /list_players, /player_info, /free_agents
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card bg-secondary border-0">
+                                <div class="card-body">
+                                    <h6 class="text-white">Match Commands</h6>
+                                    <small class="text-white-50">
+                                        /create_match, /list_matches, /cancel_match, /match_reminder
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="py-4 border-top">
+        <div class="container text-center">
+            <p class="text-muted mb-0">
+                <span class="mdi mdi-heart text-danger"></span>
+                Football Bot - Keeping your Discord server's football league organized
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Update timestamp
+        document.getElementById('timestamp').textContent = new Date().toLocaleString();
+        
+        // Keep-alive ping every 5 minutes to prevent sleeping
+        setInterval(() => {
+            fetch('/keep-alive')
+                .then(response => response.text())
+                .then(data => console.log('Keep-alive:', data))
+                .catch(error => console.error('Keep-alive error:', error));
+        }, 300000);
+    </script>
+</body>
+</html>

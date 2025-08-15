@@ -1,0 +1,76 @@
+/* Additional custom styles if needed */
+:root {
+    --bot-primary: #5865F2;
+    --bot-success: #57F287;
+    --bot-warning: #FEE75C;
+    --bot-danger: #ED4245;
+}
+
+.text-purple {
+    color: #8B5A96 !important;
+}
+
+.bg-purple {
+    background-color: #8B5A96 !important;
+}
+
+.border-purple {
+    border-color: #8B5A96 !important;
+}
+
+/* Loading animation */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+    .hero-section {
+        min-height: 50vh;
+    }
+    
+    .display-4 {
+        font-size: 2.5rem;
+    }
+    
+    .mdi-64px {
+        font-size: 48px !important;
+    }
+}
+
+/* Smooth transitions */
+.card {
+    transition: all 0.3s ease;
+}
+
+.btn {
+    transition: all 0.2s ease;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
